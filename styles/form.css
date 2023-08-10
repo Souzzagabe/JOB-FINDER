@@ -1,0 +1,30 @@
+#search-form {
+    padding: 30px 100px;
+    display: flex;
+    transition: 0.4s ease;
+}
+
+#search-form .col-md-10, #search-form .col-md-2 {
+    padding: 0;
+}
+
+#search-form input, #search-form button {
+    width: 100%;
+    border-radius: 0;
+    height: 50px;
+    font-size: 18px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+#search-form button {
+    color: white;
+    background-color: #F03E3E;
+    border: 1px solid transparent;
+    transition: 0.4s ease;
+}
+
+#search-form button:hover {
+    background-color: #fff;
+    color: #F03E3E;
+    border-color: #F03E3E;
+}

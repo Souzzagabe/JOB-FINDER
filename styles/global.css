@@ -1,0 +1,42 @@
+@import url(/styles/nav.css);
+@import url(/styles/form.css);
+@import url(/styles/list.css);
+
+* {
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+}
+
+/* BANNER */
+
+#top-container {
+    padding: 110px;
+    background: #f7f9fc; 
+    margin-bottom: 30px;
+    background-image: url(/public/img/banner-5.jpg);
+    background-position: center;
+    background-size: cover;
+    color: white;
+    background-repeat: no-repeat;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+
+#main-title {
+    padding: 30px 0;
+    font-size: 3rem;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+#main-subtitle {
+    font-size: 1rem;
+    padding-bottom: 80px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+}
+@media (min-width: 992px){
+.navbar-expand-lg .navbar-collapse {
+    display: flex!important;
+    flex-basis: auto;
+    flex-direction: row-reverse;
+}
+}
