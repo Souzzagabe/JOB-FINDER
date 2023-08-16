@@ -1,0 +1,60 @@
+#add-form-container {
+    margin-top: 100px;
+}
+
+.formbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+#form-box {
+    padding: 50px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.15);
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 50px;
+}
+
+#add-form-container h2 {
+    color: #f03e3f;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.539);
+    text-align: center;
+}
+
+#add-form-container form label{
+    font-weight: bold;
+}
+
+#add-form-container form input, #add-form-container form textarea {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.539);
+    background: #f8f9fa;
+}
+
+#form-box button {
+    height: 50px;
+    width: 200px;
+    background-color: #f03e3e;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin-top: 20px;
+    transition: 0.4s ease;
+}
+
+#center {
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.457);
+}
+
+#center h1 {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.457);
+}
+
+.form-group input {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.539);
+    text-decoration: none;
+}

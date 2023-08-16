@@ -7,15 +7,15 @@
 
 using namespace node_sqlite3;
 
-Napi::FunctionReference Backup::constructor;
-
-
 Napi::Object Backup::Init(Napi::Env env, Napi::Object exports) {
     Napi::HandleScope scope(env);
 
+    // declare napi_default_method here as it is only available in Node v14.12.0+
+    napi_property_attributes napi_default_method = static_cast<napi_property_attributes>(napi_writable | napi_configurable);
+
     Napi::Function t = DefineClass(env, "Backup", {
-        InstanceMethod("step", &Backup::Step),
-        InstanceMethod("finish", &Backup::Finish),
+        InstanceMethod("step", &Backup::Step, napi_default_method),
+        InstanceMethod("finish", &Backup::Finish, napi_default_method),
         InstanceAccessor("idle", &Backup::IdleGetter, nullptr),
         InstanceAccessor("completed", &Backup::CompletedGetter, nullptr),
         InstanceAccessor("failed", &Backup::FailedGetter, nullptr),
@@ -23,9 +23,6 @@ Napi::Object Backup::Init(Napi::Env env, Napi::Object exports) {
         InstanceAccessor("pageCount", &Backup::PageCountGetter, nullptr),
         InstanceAccessor("retryErrors", &Backup::RetryErrorGetter, &Backup::RetryErrorSetter),
     });
-
-    constructor = Napi::Persistent(t);
-    constructor.SuppressDestruct();
 
     exports.Set("Backup", t);
     return exports;
@@ -37,11 +34,10 @@ void Backup::Process() {
     }
 
     while (inited && !locked && !queue.empty()) {
-        Call* call = queue.front();
+        std::unique_ptr<Call> call(queue.front());
         queue.pop();
 
         call->callback(call->baton);
-        delete call;
     }
 }
 
@@ -92,21 +88,17 @@ void Backup::CleanQueue() {
 
         // Clear out the queue so that this object can get GC'ed.
         while (!queue.empty()) {
-            Call* call = queue.front();
+            std::unique_ptr<Call> call(queue.front());
             queue.pop();
 
-            Napi::Function cb = call->baton->callback.Value();
+            std::unique_ptr<Baton> baton(call->baton);
+            Napi::Function cb = baton->callback.Value();
 
             if (inited && !cb.IsEmpty() &&
                 cb.IsFunction()) {
                 TRY_CATCH_CALL(Value(), cb, 1, argv);
                 called = true;
             }
-
-            // We don't call the actual callback, so we have to make sure that
-            // the baton gets destroyed.
-            delete call->baton;
-            delete call;
         }
 
         // When we couldn't call a callback function, emit an error on the
@@ -119,13 +111,12 @@ void Backup::CleanQueue() {
     else while (!queue.empty()) {
         // Just delete all items in the queue; we already fired an event when
         // initializing the backup failed.
-        Call* call = queue.front();
+        std::unique_ptr<Call> call(queue.front());
         queue.pop();
 
         // We don't call the actual callback, so we have to make sure that
         // the baton gets destroyed.
         delete call->baton;
-        delete call;
     }
 }
 
@@ -226,13 +217,14 @@ void Backup::Work_Initialize(napi_env e, void* data) {
 }
 
 void Backup::Work_AfterInitialize(napi_env e, napi_status status, void* data) {
-    BACKUP_INIT(InitializeBaton);
+    std::unique_ptr<InitializeBaton> baton(static_cast<InitializeBaton*>(data));
+    Backup* backup = baton->backup;
 
     Napi::Env env = backup->Env();
     Napi::HandleScope scope(env);
 
     if (backup->status != SQLITE_OK) {
-        Error(baton);
+        Error(baton.get());
         backup->FinishAll();
     }
     else {
@@ -288,7 +280,8 @@ void Backup::Work_Step(napi_env e, void* data) {
 }
 
 void Backup::Work_AfterStep(napi_env e, napi_status status, void* data) {
-    BACKUP_INIT(StepBaton);
+    std::unique_ptr<StepBaton> baton(static_cast<StepBaton*>(data));
+    Backup* backup = baton->backup;
 
     Napi::Env env = backup->Env();
     Napi::HandleScope scope(env);
@@ -300,7 +293,7 @@ void Backup::Work_AfterStep(napi_env e, napi_status status, void* data) {
     }
 
     if (backup->status != SQLITE_OK && backup->status != SQLITE_DONE) {
-        Error(baton);
+        Error(baton.get());
     }
     else {
         // Fire callbacks.
@@ -335,7 +328,8 @@ void Backup::Work_Finish(napi_env e, void* data) {
 }
 
 void Backup::Work_AfterFinish(napi_env e, napi_status status, void* data) {
-    BACKUP_INIT(Baton);
+    std::unique_ptr<Baton> baton(static_cast<Baton*>(data));
+    Backup* backup = baton->backup;
 
     Napi::Env env = backup->Env();
     Napi::HandleScope scope(env);

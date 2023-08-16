@@ -1,0 +1,115 @@
+#job-list .list-group-item {
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    padding: 15px 80px;
+    /* color: #212529; */
+    height: 120px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+#job-list .list-group-item p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#job-list .list-group-item.new-job {
+    border: none;
+    background-color: #fff7cc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+#jobs-container {
+    padding: 0 100px;
+    padding-bottom: 50px;
+}
+
+#job-list-title {
+    margin-bottom: 35px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+.list-group-item img {
+    width: 80px;
+    border: 1px #212529;
+    border-radius: 50%;
+    position: absolute;
+    left: -40px;
+    top: calc(50% - 40px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+.list-group-item a {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+    height: 50px;
+    line-height: 35px;
+    background-color: #f03e3e;
+    border: 1px solid transparent;
+    border-radius: 0;
+    color: white;
+}
+
+.list-group-item a:hover {
+    background-color: white;
+    color: #F03E3E;
+    border-color: #F03E3E;
+}
+
+
+/* job view  */
+
+#job-view-container {
+    margin-top: 100px;
+}
+
+#job-view-container h1{
+    margin-bottom: 30px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+#img-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#img-container img {
+    width: 100px;
+    border-radius: 50%;
+    border: 3px solid rgba(95, 93, 93, 0.649);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+}
+
+.job-desc {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.main-color {
+    color: #F03E3E;
+}
+
+.main-color {
+    color:#F03E3E;
+}
+
+.back-link {
+    border: 1px solid #F03E3E;
+    padding: 5px 10px;
+    transition: .5s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.539);
+    width: 100px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    background-color: #F03E3E;
+    
+    color: white;
+}
