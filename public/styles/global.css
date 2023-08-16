@@ -12,7 +12,7 @@
 
 #top-container {
     padding: 110px;
-    background: #f7f9fc; 
+    background: #f7f9fc;
     margin-bottom: 30px;
     background-image: url(/img/banner-5.jpg);
     background-position: center;
@@ -34,10 +34,127 @@
     padding-bottom: 80px;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
 }
-@media (min-width: 992px){
-.navbar-expand-lg .navbar-collapse {
-    display: flex!important;
-    flex-basis: auto;
-    flex-direction: row-reverse;
+
+
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 994px) {
+    #navbarNav {
+        text-align: center;
+
+    }
+
+    .nav-item {
+        margin: auto;
+    }
+
+    #top-container {
+        padding: 50px;
+        padding-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .btn-primary button{
+        font-size: 8px;
+    }
+
+    #main-title {
+        font-size: 2.2rem;
+    }
+
+    #main-subtitle {
+        font-size: 1.2rem;
+    }
+
+    #search-form {
+        padding: 0;
+        display: flex;
+        width: 100%;
+    }
+
+    #job {
+        padding: 20px;
+        font-size: 2px;
+    }
+
+    #jobs-container {
+        padding: 20px
+    }
+
+    .list-group-item {
+        padding: 15px 85px;
+    }
+
+    .list-group-item h2 {
+        font-size: 1.2rem;
+        width: 80%;
+    }
+
+    .list-group-item img {
+        width: 50px;
+        left: 15px;
+        top: calc(50% - 25);
+    }
+
+    .new-job .new-job-label {
+        display: none;
+    }
+
+    .back-link {
+        margin-left: 30px;
+    }
+
+    #job-view-container p {
+        font-size: 1.3rem
+    }
+
+    .job-desc {
+        width: 80%;
+    }
+
+    #form-box {
+        padding: 25px;
+    }
+
+    #form-box h2 {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    #form-box button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    #search-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    #job input {
+        text-align: center;
+    }
+}
+
+
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        flex-direction: row-reverse;
+    }
+}
+
+@media (min-width: 768px){
+.col-md-2 {
+    flex: 0 0 auto;
+    width: auto;
 }
 }
